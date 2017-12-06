@@ -31,22 +31,25 @@ class Mapper extends Component {
         >
           <LayersControl position="topright">
 
+{/* radio button */}
 
-            <LayersControl.BaseLayer checked name="OpenStreetMap.BlackAndWhite">
+            <LayersControl.BaseLayer  name="OpenStreetMap.BlackAndWhite">
               <TileLayer
                 attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
-                url="https://tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png"
+                url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"
               />
             </LayersControl.BaseLayer>
 
+{/* radio button  */}
 
-            <LayersControl.BaseLayer name="OpenStreetMap.Mapnik">
+            <LayersControl.BaseLayer checked name="OpenStreetMap.Mapnik">
               <TileLayer
                 attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                url='https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png'
               />
             </LayersControl.BaseLayer>
 
+{/* checkbox */}
 
             <LayersControl.Overlay
               name="Marker with popup"
@@ -60,6 +63,7 @@ class Mapper extends Component {
               </Marker>
             </LayersControl.Overlay>
 
+{/* checkbox */}
 
             <LayersControl.Overlay
               name="Feature group"
@@ -73,7 +77,7 @@ class Mapper extends Component {
 
                   <Circle
                     center={[29.761993, -95.366302]}
-                    radius={200}
+                    radius={2000}
                   />
               </FeatureGroup>
             </LayersControl.Overlay>
