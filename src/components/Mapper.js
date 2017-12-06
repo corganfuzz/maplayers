@@ -29,11 +29,18 @@ class Mapper extends Component {
           center={position}
           zoom={4}
         >
+          <Marker position={[29.761993, -95.366302]}>
+            <Popup>
+              <span>
+                A pretty CSS3 popup. <br /> Easily customizable.
+              </span>
+            </Popup>
+          </Marker>
           <LayersControl position="topright">
 
 {/* radio button */}
 
-            <LayersControl.BaseLayer  name="OpenStreetMap.BlackAndWhite">
+            <LayersControl.BaseLayer checked name="OpenStreetMap.BlackAndWhite">
               <TileLayer
                 attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
                 url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"
@@ -42,26 +49,13 @@ class Mapper extends Component {
 
 {/* radio button  */}
 
-            <LayersControl.BaseLayer checked name="OpenStreetMap.Mapnik">
+            <LayersControl.BaseLayer  name="OpenStreetMap.Mapnik">
               <TileLayer
                 attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
                 url='https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png'
               />
             </LayersControl.BaseLayer>
 
-{/* checkbox */}
-
-            <LayersControl.Overlay
-              name="Marker with popup"
-            >
-              <Marker position={[29.761993, -95.366302]}>
-                <Popup>
-                  <span>
-                    A pretty CSS3 popup. <br /> Easily customizable.
-                  </span>
-                </Popup>
-              </Marker>
-            </LayersControl.Overlay>
 
 {/* checkbox */}
 
