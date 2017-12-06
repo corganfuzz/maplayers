@@ -29,6 +29,8 @@ class Mapper extends Component {
           center={position}
           zoom={4}
         >
+{/* This Marker and Popup would not appear on the Layers Control*/}   
+
           <Marker position={[29.761993, -95.366302]}>
             <Popup>
               <span>

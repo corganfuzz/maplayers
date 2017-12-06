@@ -1,1 +1,1 @@
-##  Old plugin on react-leaflet inside layers
+##  React-leaflet-shapefile working on React Fiber
