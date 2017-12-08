@@ -13,7 +13,7 @@ import {
 } from "react-leaflet";
 
 
-import layerdata from './geoprotrac.js'
+import layerdata from '../geojson/protracgeo';
 
 const position = [29.761993, -95.366302];
 const styles = {
