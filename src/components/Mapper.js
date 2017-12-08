@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 // import { render } from "react-dom";
 // import Layzs from "./Layz";
+// import Act from './actlease.zip';
 import {
   Map,
   LayersControl,
@@ -8,8 +9,9 @@ import {
   Marker,
   Popup,
   FeatureGroup,
-  Circle
 } from "react-leaflet";
+
+// import ShapeFile from 'react-leaflet-shapefile';
 
 const position = [29.761993, -95.366302];
 const styles = {
@@ -21,7 +23,69 @@ const styles = {
 };
 
 class Mapper extends Component {
+  constructor(props){
+    super(props);
+
+    this.onEachFeature = this.onEachFeature.bind(this);
+    this.handleFile = this.handleFile.bind(this);
+    // this.readerLoad = this.readerLoad.bind(this);
+
+      this.state ={
+        geodata: null
+    }
+  }
+
+
+  readerLoad(e) {
+    this.setState({
+      geodata: e.target.result
+    })
+  }
+
+  handleFile(e) {
+
+      var reader = new FileReader();
+
+          var file = e.target.files[0];
+
+          reader.onload = function(upload) {
+
+            this.readerLoad(upload);
+
+          }.bind(this);
+
+          reader.readAsArrayBuffer(file);
+    }
+
+
+
+  onEachFeature(feature, layer){
+    if (feature.properties) {
+      layer.bindPopup(Object.keys(feature.properties).map(function(k) {
+        return k + ":" + feature.properties[k];
+      }).join("<br />"), {
+        maxHeight:200
+      });
+    }
+  }
+
   render() {
+
+    let ShapeLayerz = (
+      <LayersControl.Overlay checked name="oil layer">
+        <FeatureGroup color="red">
+          {/* <ShapeFile
+            data={this.state.geodata}
+            onEachFeature={this.onEachFeature}
+            isArrayBuffer={true}
+          /> */}
+        </FeatureGroup>
+      </LayersControl.Overlay>
+    )
+
+
+    console.log(this.state.geodata)
+
     return (
       <div>
         <Map
@@ -29,15 +93,18 @@ class Mapper extends Component {
           center={position}
           zoom={4}
         >
-{/* This Marker and Popup would not appear on the Layers Control*/}   
+{/* This Marker and Popup would not appear on the Layers Control*/}
 
-          <Marker position={[29.761993, -95.366302]}>
+          <Marker
+            onclick={this.handleFile}
+            position={[29.761993, -95.366302]}>
             <Popup>
               <span>
                 A pretty CSS3 popup. <br /> Easily customizable.
               </span>
             </Popup>
           </Marker>
+
           <LayersControl position="topright">
 
 {/* radio button */}
@@ -61,22 +128,7 @@ class Mapper extends Component {
 
 {/* checkbox */}
 
-            <LayersControl.Overlay
-              name="Feature group"
-            >
-              <FeatureGroup
-                color="purple"
-              >
-                  <Popup>
-                    <span>Popup in FeatureGroup</span>
-                  </Popup>
-
-                  <Circle
-                    center={[29.761993, -95.366302]}
-                    radius={2000}
-                  />
-              </FeatureGroup>
-            </LayersControl.Overlay>
+            {ShapeLayerz}
 
 
           </LayersControl>
