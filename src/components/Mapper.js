@@ -9,9 +9,11 @@ import {
   Marker,
   Popup,
   FeatureGroup,
+  GeoJSON
 } from "react-leaflet";
 
-// import ShapeFile from 'react-leaflet-shapefile';
+
+import layerdata from './geoprotrac.js'
 
 const position = [29.761993, -95.366302];
 const styles = {
@@ -29,12 +31,13 @@ class Mapper extends Component {
     this.onEachFeature = this.onEachFeature.bind(this);
     this.handleFile = this.handleFile.bind(this);
     // this.readerLoad = this.readerLoad.bind(this);
+    // this.getGeoJson = this.getGeoJson.bind(this);
 
       this.state ={
-        geodata: null
+        geodata: null,
+        gjson: layerdata
     }
   }
-
 
   readerLoad(e) {
     this.setState({
@@ -72,7 +75,7 @@ class Mapper extends Component {
   render() {
 
     let ShapeLayerz = (
-      <LayersControl.Overlay checked name="oil layer">
+      <LayersControl.Overlay name="oil layer">
         <FeatureGroup color="red">
           {/* <ShapeFile
             data={this.state.geodata}
@@ -83,8 +86,18 @@ class Mapper extends Component {
       </LayersControl.Overlay>
     )
 
+    let geoLayer = (
+      <LayersControl.Overlay checked name="gulf layer">
+        <FeatureGroup color="red">
 
-    console.log(this.state.geodata)
+          <GeoJSON data={this.state.gjson} />
+
+        </FeatureGroup>
+      </LayersControl.Overlay>
+    )
+
+
+    // console.log(this.state.geodata)
 
     return (
       <div>
@@ -130,6 +143,8 @@ class Mapper extends Component {
 
             {ShapeLayerz}
 
+            {geoLayer}
+
 
           </LayersControl>
         </Map>
@@ -139,5 +154,7 @@ class Mapper extends Component {
 }
 
 export default Mapper;
+
+
 
 // url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"
